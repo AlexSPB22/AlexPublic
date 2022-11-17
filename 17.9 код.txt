@@ -1,0 +1,40 @@
+
+arr = input('Введите последовательность через пробел: ').split(' ')
+x = int(input('Введите число: '))
+
+# 1 52 223 114 996 1854 - числа для ввода
+
+arr.append(x) # добавление в выборку
+# print(arr)
+int_arr = [int(x) for x in arr] # преобразование строк в числа
+print(int_arr) # печать в виде чисел
+
+# сортировка вариант
+
+for i in range(len(int_arr)):  # проходим по всему массиву
+    idx_min = i  # сохраняем индекс предположительно минимального элемента
+    for j in range(i, len(int_arr)):
+        if int_arr[j] < int_arr[idx_min]:  # - по возрастанию, если > по убыванию
+            idx_min = j
+    if i != idx_min:  # если индекс не совпадает с минимальным, меняем
+        int_arr[i], int_arr[idx_min] = int_arr[idx_min], int_arr[i]
+print('!!!!!!')
+print('отсортированно ',int_arr)
+print('определение позиции введённого числа ')
+
+def binary_search(int_arr, x , left, right):
+
+    if left > right:
+        return False
+
+    middle = (right + left) // 2  # находимо середину
+    if int_arr[middle] == x:  # если элемент в середине,
+            return middle  # возвращаем этот индекс
+
+    elif int_arr[middle] > x:
+        # если элемент меньше элемента в середине
+
+        return binary_search(int_arr, x, left, middle - 1)
+    else:   # иначе в правой
+        return binary_search(int_arr, x, middle + 1, right)
+print(binary_search(int_arr, x, 0, len(int_arr)))
